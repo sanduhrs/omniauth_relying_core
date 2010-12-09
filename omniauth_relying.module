@@ -1,0 +1,78 @@
+<?php
+
+include_once('simple_sign_on_openid_relying.features.inc');
+
+// $Id$
+
+/**
+ *
+ */
+
+/**
+ * Implement hook_menu().
+ */
+function zeit_sso_relying_menu() {
+  $items = array();
+  // Move log in page to login/direct. See how openid_sso_menu_alter() replaces
+  // log in.
+  $items['user/login/remote'] = array(
+    'title' => 'Log in',
+    'page callback' => 'zeit_sso_relying_user_page',
+    'access callback' => 'user_is_anonymous',
+    'type' => MENU_CALLBACK,
+  );
+  $items['user/register/remote'] = array(
+    'title' => 'Create new account',
+    'page callback' => 'zeit_sso_relying_user_register_page',
+    'access callback' => 'user_register_access',
+    'type' => MENU_CALLBACK,
+  );
+  $items['user/password/remote'] = array(
+    'title' => 'Request new password',
+    'page callback' => 'zeit_sso_relying_user_password_page',
+    'page arguments' => array('user_pass'),
+    'access callback' => 'user_is_anonymous',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Custom menu callback for user/page.
+ */
+function zeit_sso_relying_user_page() {
+  global $user;
+  if ($user->uid) {
+    return user_page();
+  }
+  return openid_sso_request();
+}
+
+/**
+ * Custom menu callback for user/register.
+ */
+function zeit_sso_relying_user_register_page() {
+  $provider = variable_get('openid_sso_provider', array());
+  drupal_goto(url($provider['url'] . 'user/register/remote', array('absolute' => TRUE)));
+}
+
+/**
+ * Custom menu callback for user/password.
+ */
+function zeit_sso_relying_user_password_page() {
+  $provider = variable_get('openid_sso_provider', array());
+  drupal_goto(url($provider['url'] . 'user/password/remote', array('absolute' => TRUE)));
+}
+
+/**
+ *
+ */
+function zeit_sso_relying_form_openid_redirect_form_alter(&$form, &$form_state) {
+  if (arg(2) == 'remote') {
+    $form['remote'] = array(
+      '#type' => 'textfield'
+      '#default_value' => 'true',
+    );
+  }
+}
+

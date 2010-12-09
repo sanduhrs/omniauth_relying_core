@@ -1,0 +1,19 @@
+; $Id$
+name = "Omniauth Relying Party"
+description = "ZEIT Online SSO customizations"
+package = "OpenID"
+core = "6.x"
+project = "omniauth_relying"
+version = "6.x-1.0-alpha1"
+
+dependencies[] = "features"
+dependencies[] = "openid"
+dependencies[] = "openid_client_ax"
+dependencies[] = "openid_client_sreg"
+dependencies[] = "openid_sso"
+;dependencies[] = "openid_client_sso"
+
+
+
+
+
