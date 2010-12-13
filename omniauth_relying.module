@@ -84,11 +84,13 @@ function omniauth_relying_form_user_profile_form_alter(&$form, &$form_state) {
   $provider = variable_get('openid_sso_provider', array());
 
   $form['account']['name']['#disabled'] = TRUE;
+  $form['account']['name']['#value'] = $form['account']['name']['#default_value'];
   $form['account']['name']['#description'] = t('Please visit the !sso_name to change your username and password', array(
     '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url']))
   );
 
   $form['account']['mail']['#disabled'] = TRUE;
+  $form['account']['mail']['#value'] = $form['account']['mail']['#default_value'];
   $form['account']['mail']['#description'] = t('Please visit the !sso_name to change your email address', array(
     '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url']))
   );
