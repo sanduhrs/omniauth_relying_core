@@ -1,6 +1,6 @@
 <?php
 
-include_once('simple_sign_on_openid_relying.features.inc');
+include_once('omniauth_relying.features.inc');
 
 // $Id$
 
@@ -70,7 +70,7 @@ function zeit_sso_relying_user_password_page() {
 function zeit_sso_relying_form_openid_redirect_form_alter(&$form, &$form_state) {
   if (arg(2) == 'remote') {
     $form['remote'] = array(
-      '#type' => 'textfield'
+      '#type' => 'textfield',
       '#default_value' => 'true',
     );
   }
