@@ -76,9 +76,18 @@ function omniauth_relying_user_password_page() {
   drupal_goto(url($provider['url'] . 'user/password', array('absolute' => TRUE)));
 }
 
+/**
+ * Implement HOOK_form_FORM_ID_alter().
+ */
+function omniauth_relying_form_profile_node_form_alter(&$form, &$form_state) {
+  if (!user_access('administer nodes')) {
+    $form['title']['#type'] = 'value';
+    $form['body_field']['#type'] = 'value';
+  }
+}
 
 /**
- * Implements hook_form_alter() for the user profile form
+ * Implement HOOK_form_FORM_ID_alter().
  */
 function omniauth_relying_form_user_profile_form_alter(&$form, &$form_state) {
   $provider = variable_get('openid_sso_provider', array());
