@@ -1,11 +1,15 @@
 <?php
 // $Id$
 
-include_once('omniauth_relying.features.inc');
-
 /**
+ * @file
  *
+ * @author
+ * Stefan Auditor <stefan.auditor@erdfisch.de>
+ * Felix Delattre <felix.delattre@erdfisch.de>
  */
+
+include_once('omniauth_relying.features.inc');
 
 /**
  * Implement hook_menu().
@@ -34,6 +38,15 @@ function omniauth_relying_menu() {
     'type' => MENU_CALLBACK,
   );
   return $items;
+}
+
+/**
+ * Implement HOOK_menu_alter().
+ */
+function omniauth_relying_menu_alter(&$items) {
+  if (!user_access('administer openid client ax')) {
+    $items['user/%user/openid']['access callback'] = FALSE;
+  }
 }
 
 /**
