@@ -44,7 +44,7 @@ function omniauth_relying_menu() {
  * Implement HOOK_menu_alter().
  */
 function omniauth_relying_menu_alter(&$items) {
-  if (!user_access('administer openid client ax')) {
+  if (!user_access('administer users')) {
     $items['user/%user/openid']['access callback'] = FALSE;
   }
 }
