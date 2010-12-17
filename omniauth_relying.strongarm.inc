@@ -8,10 +8,17 @@ function omniauth_relying_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_profile';
-  $strongarm->value = '1';
+  $strongarm->name = 'content_extra_weights_profile';
+  $strongarm->value = array(
+    'title' => '-5',
+    'body_field' => '3',
+    'revision_information' => '5',
+    'author' => '4',
+    'options' => '6',
+    'menu' => '2',
+  );
 
-  $export['ant_profile'] = $strongarm;
+  $export['content_extra_weights_profile'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
