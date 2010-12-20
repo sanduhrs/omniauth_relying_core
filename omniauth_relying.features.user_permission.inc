@@ -9,7 +9,9 @@ function omniauth_relying_user_default_permissions() {
   // Exported permission: edit own profile content
   $permissions['edit own profile content'] = array(
     'name' => 'edit own profile content',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   return $permissions;

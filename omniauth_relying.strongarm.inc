@@ -56,9 +56,9 @@ function omniauth_relying_strongarm() {
     'http://axschema.org/namePerson/prefix' => 'field_name_person_prefix',
     'http://axschema.org/namePerson/first' => 'field_name_person_first',
     'http://axschema.org/namePerson/last' => 'field_name_person_last',
+    'http://axschema.org/birthDate' => 'field_birth_date',
     'http://axschema.org/contact/postalCode/home' => 'field_contact_postal_code_home',
     'http://axschema.org/contact/city/home' => 'field_contact_city_home',
-    'http://axschema.org/birthDate' => 'field_birth_date',
   );
 
   $export['openid_cp_field_map_profile'] = $strongarm;
@@ -76,7 +76,7 @@ function omniauth_relying_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_email_verification';
-  $strongarm->value = 0;
+  $strongarm->value = TRUE;
 
   $export['user_email_verification'] = $strongarm;
   return $export;
