@@ -29,6 +29,11 @@ function omniauth_relying_strongarm() {
     'edit_link' => 0,
     'edit_tab' => 'sub',
     'add_link' => 1,
+    'registration_use' => 1,
+    'admin_user_create_use' => 1,
+    'registration_hide' => array(
+      0 => 'title',
+    ),
   );
 
   $export['content_profile_profile'] = $strongarm;
