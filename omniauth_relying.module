@@ -104,6 +104,12 @@ function omniauth_relying_form_user_profile_form_alter(&$form, &$form_state) {
     '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url']))
   );
 
-  unset($form['account']['pass']);
+  $form['account']['pass']['#disabled'] = TRUE;
+  $form['account']['pass']['#type'] = 'textfield';
+  $form['account']['pass']['#title'] = t('Password');
+  $form['account']['pass']['#value'] = '***********';
+  $form['account']['pass']['#description'] = t('Please visit the !sso_name to change your password address', array(
+    '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url']))
+  );
 }
 
