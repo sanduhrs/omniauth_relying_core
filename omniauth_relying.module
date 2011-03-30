@@ -44,9 +44,9 @@ function omniauth_relying_menu() {
  * Implement HOOK_menu_alter().
  */
 function omniauth_relying_menu_alter(&$items) {
-  if (!user_access('administer users')) {
-    $items['user/%user/openid']['access callback'] = FALSE;
-  }
+  // Allow only admins to change openid settings
+  $items['user/%user/openid']['access callback'] = 'user_access';
+  $items['user/%user/openid']['access arguments'][0] = 'administer users';
 }
 
 /**
