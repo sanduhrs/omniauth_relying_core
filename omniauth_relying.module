@@ -16,7 +16,7 @@ include_once('omniauth_relying.features.inc');
  */
 function omniauth_relying_menu() {
   $items = array();
-  // Move log in page to login/direct. See how openid_sso_menu_alter() replaces
+  // Move log in page to login/direct. See how openid_relying_sso_menu_alter() replaces
   // log in.
   $items['user/login'] = array(
     'title' => 'Log in',
@@ -57,14 +57,14 @@ function omniauth_relying_user_page() {
   if ($user->uid) {
     return user_page();
   }
-  return openid_sso_request();
+  return openid_relying_sso_request();
 }
 
 /**
  * Custom menu callback for user/register.
  */
 function omniauth_relying_user_register_page() {
-  $provider = variable_get('openid_sso_provider', array());
+  $provider = variable_get('openid_relying_sso_provider', array());
   drupal_goto(url($provider['url'] . 'user/register', array('absolute' => TRUE)));
 }
 
@@ -72,7 +72,7 @@ function omniauth_relying_user_register_page() {
  * Custom menu callback for user/password.
  */
 function omniauth_relying_user_password_page() {
-  $provider = variable_get('openid_sso_provider', array());
+  $provider = variable_get('openid_relying_sso_provider', array());
   drupal_goto(url($provider['url'] . 'user/password', array('absolute' => TRUE)));
 }
 
@@ -90,7 +90,7 @@ function omniauth_relying_form_profile_node_form_alter(&$form, &$form_state) {
  * Implement HOOK_form_FORM_ID_alter().
  */
 function omniauth_relying_form_user_profile_form_alter(&$form, &$form_state) {
-  $provider = variable_get('openid_sso_provider', array());
+  $provider = variable_get('openid_relying_sso_provider', array());
   global $base_url;
   global $base_path;
   $path = isset($_GET['q']) ? $_GET['q'] : '';
