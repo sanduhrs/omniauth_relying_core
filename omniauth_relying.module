@@ -90,30 +90,34 @@ function omniauth_relying_form_profile_node_form_alter(&$form, &$form_state) {
  * Implement HOOK_form_FORM_ID_alter().
  */
 function omniauth_relying_form_user_profile_form_alter(&$form, &$form_state) {
-  $provider = variable_get('openid_relying_sso_provider', array());
-  global $base_url;
-  global $base_path;
-  $path = isset($_GET['q']) ? $_GET['q'] : '';
-  $path = $base_url . $base_path . $path;
+  global $user;
+  if ($user->uid != 1) {
+    $provider = variable_get('openid_relying_sso_provider', array());
+    global $base_url;
+    global $base_path;
 
-  $form['account']['name']['#disabled'] = TRUE;
-  $form['account']['name']['#value'] = $form['account']['name']['#default_value'];
-  $form['account']['name']['#description'] = t('Please visit the !sso_name to change your username and password', array(
-    '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url'], array('query' => array('omniauth_redirect' => $path))))
-  );
+    $path = isset($_GET['q']) ? $_GET['q'] : '';
+    $path = $base_url . $base_path . $path;
 
-  $form['account']['mail']['#disabled'] = TRUE;
-  $form['account']['mail']['#value'] = $form['account']['mail']['#default_value'];
-  $form['account']['mail']['#description'] = t('Please visit the !sso_name to change your email address', array(
-    '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url'], array('query' => array('omniauth_redirect' => $path))))
-  );
+    $form['account']['name']['#disabled'] = TRUE;
+    $form['account']['name']['#value'] = $form['account']['name']['#default_value'];
+    $form['account']['name']['#description'] = t('Please visit the !sso_name to change your username and password', array(
+      '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url'], array('query' => array('omniauth_redirect' => $path))))
+    );
 
-  $form['account']['pass']['#disabled'] = TRUE;
-  $form['account']['pass']['#type'] = 'textfield';
-  $form['account']['pass']['#title'] = t('Password');
-  $form['account']['pass']['#value'] = '***********';
-  $form['account']['pass']['#description'] = t('Please visit the !sso_name to change your password address', array(
-    '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url'], array('query' => array('omniauth_redirect' => $path))))
-  );
+    $form['account']['mail']['#disabled'] = TRUE;
+    $form['account']['mail']['#value'] = $form['account']['mail']['#default_value'];
+    $form['account']['mail']['#description'] = t('Please visit the !sso_name to change your email address', array(
+      '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url'], array('query' => array('omniauth_redirect' => $path))))
+    );
+
+    $form['account']['pass']['#disabled'] = TRUE;
+    $form['account']['pass']['#type'] = 'textfield';
+    $form['account']['pass']['#title'] = t('Password');
+    $form['account']['pass']['#value'] = '***********';
+    $form['account']['pass']['#description'] = t('Please visit the !sso_name to change your password address', array(
+      '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url'], array('query' => array('omniauth_redirect' => $path))))
+    );
+  }
 }
 
