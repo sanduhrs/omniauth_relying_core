@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_user_default_permissions().
  */
-function omniauth_relying_user_default_permissions() {
+function omniauth_relying_core_user_default_permissions() {
   $permissions = array();
 
   // Exported permission: edit own profile content

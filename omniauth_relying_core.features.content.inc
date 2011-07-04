@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_content_default_fields().
  */
-function omniauth_relying_content_default_fields() {
+function omniauth_relying_core_content_default_fields() {
   $fields = array();
 
   // Exported field: field_contact_city_home
