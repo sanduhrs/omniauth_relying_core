@@ -172,7 +172,7 @@ function omniauth_relying_core_field_default_fields() {
       'entity_type' => 'user',
       'field_name' => 'field_name_person_first',
       'label' => 'First name',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'text_processing' => '0',
         'user_register_form' => 1,
@@ -293,7 +293,7 @@ function omniauth_relying_core_field_default_fields() {
       'entity_type' => 'user',
       'field_name' => 'field_name_person_prefix',
       'label' => 'Name prefix',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'user_register_form' => 1,
       ),
