@@ -15,14 +15,54 @@ function omniauth_relying_core_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'openid_profile_map';
   $strongarm->value = array(
-    'http://axschema.org/namePerson/prefix' => 'field_name_person_prefix',
-    'http://axschema.org/namePerson/first' => 'field_name_person_first',
-    'http://axschema.org/namePerson/last' => 'field_name_person_last',
-    'http://axschema.org/contact/postalCode/home' => 'field_contact_postal_code_home',
-    'http://axschema.org/contact/city/home' => 'field_contact_city_home',
-    'http://axschema.org/contact/email' => 'mail',
-    'http://axschema.org/namePerson/friendly' => 'name',
-    'http://axschema.org/pref/timezone' => 'timezone',
+    'http://axschema.org/namePerson/friendly' => array(
+      'value' => 'name',
+      'handler' => array(
+        'name' => 'Basic text',
+        'class' => 'openid_profile_basic',
+      ),
+      'field_type' => 'name',
+    ),
+    'http://axschema.org/contact/email' => array(
+      'value' => 'mail',
+      'handler' => array(
+        'name' => 'Basic text',
+        'class' => 'openid_profile_basic',
+      ),
+      'field_type' => 'mail',
+    ),
+    'http://axschema.org/namePerson/first' => array(
+      'value' => 'field_name_person_first',
+      'handler' => array(
+        'name' => 'Field',
+        'class' => 'openid_profile_field',
+      ),
+      'field_type' => 'text',
+    ),
+    'http://axschema.org/namePerson/last' => array(
+      'value' => 'field_name_person_last',
+      'handler' => array(
+        'name' => 'Field',
+        'class' => 'openid_profile_field',
+      ),
+      'field_type' => 'text',
+    ),
+    'http://axschema.org/contact/postalCode/business' => array(
+      'value' => 'field_contact_postal_code_home',
+      'handler' => array(
+        'name' => 'Field',
+        'class' => 'openid_profile_field',
+      ),
+      'field_type' => 'number_integer',
+    ),
+    'http://axschema.org/contact/city/home' => array(
+      'value' => 'field_contact_city_home',
+      'handler' => array(
+        'name' => 'Field',
+        'class' => 'openid_profile_field',
+      ),
+      'field_type' => 'text',
+    ),
   );
   $export['openid_profile_map'] = $strongarm;
 
