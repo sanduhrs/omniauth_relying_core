@@ -92,7 +92,7 @@ function omniauth_relying_core_form_profile_node_form_alter(&$form, &$form_state
 function omniauth_relying_core_form_user_profile_form_alter(&$form, &$form_state) {
   global $user;
   if ($user->uid != 1) {
-    $provider = variable_get('openid_sso_relying_provider', array());
+    $provider = variable_get('openid_relying_sso_provider', array());
     global $base_url;
     global $base_path;
 
