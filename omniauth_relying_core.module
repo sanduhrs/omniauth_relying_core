@@ -115,7 +115,7 @@ function omniauth_relying_core_form_user_profile_form_alter(&$form, &$form_state
     $form['account']['pass']['#type'] = 'textfield';
     $form['account']['pass']['#title'] = t('Password');
     $form['account']['pass']['#value'] = '***********';
-    $form['account']['pass']['#description'] = t('Please visit the !sso_name to change your password address', array(
+    $form['account']['pass']['#description'] = t('Please visit the !sso_name to change your password', array(
       '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url'], array('query' => array('omniauth_redirect' => $path))))
     );
   }
