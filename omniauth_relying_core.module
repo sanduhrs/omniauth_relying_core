@@ -37,8 +37,15 @@ function omniauth_relying_core_menu() {
     'access callback' => 'user_is_anonymous',
     'type' => MENU_CALLBACK,
   );
+  $items['openid/profile/redirect'] = array(
+    'title' => 'Redirect to user profile',
+    'page callback' => 'omniauth_relying_core_openid_profile_redirect',
+    'access arguments' => array('access user profiles'),
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
+
 
 /**
  * Implement HOOK_menu_alter().
@@ -49,6 +56,7 @@ function omniauth_relying_core_menu_alter(&$items) {
   $items['user/%user/openid']['access arguments'][0] = 'administer users';
 }
 
+
 /**
  * Custom menu callback for user/page.
  */
@@ -57,8 +65,9 @@ function omniauth_relying_core_user_page() {
   if ($user->uid) {
     return user_page();
   }
-  return openid_relying_sso_request();
+  return openid_sso_relying_request();
 }
+
 
 /**
  * Custom menu callback for user/register.
@@ -68,6 +77,7 @@ function omniauth_relying_core_user_register_page() {
   drupal_goto(url($provider['url'] . 'user/register', array('absolute' => TRUE)));
 }
 
+
 /**
  * Custom menu callback for user/password.
  */
@@ -75,6 +85,32 @@ function omniauth_relying_core_user_password_page() {
   $provider = variable_get('openid_relying_sso_provider', array());
   drupal_goto(url($provider['url'] . 'user/password', array('absolute' => TRUE)));
 }
+
+
+/**
+ * Custom menu callback for redirecting to user profle by openid sso identity.
+ */
+function omniauth_relying_core_openid_profile_redirect() {
+
+  // Obtain openid identity url from arguments.
+  $openid_idenity = $_GET['identity'];
+
+  // Decode identity
+  $openid_idenity = rawurldecode($openid_idenity);
+
+  if (valid_url($openid_idenity)) {
+    $account = user_external_load($openid_idenity);
+    if (isset($account->uid)) {
+
+      // Redirect to user.
+      drupal_goto('user/' . $account->uid);
+    }
+  }
+
+  // If no redirect has happened, just throw 404.
+  drupal_not_found();
+}
+
 
 /**
  * Implement HOOK_form_FORM_ID_alter().
@@ -115,7 +151,7 @@ function omniauth_relying_core_form_user_profile_form_alter(&$form, &$form_state
     $form['account']['pass']['#type'] = 'textfield';
     $form['account']['pass']['#title'] = t('Password');
     $form['account']['pass']['#value'] = '***********';
-    $form['account']['pass']['#description'] = t('Please visit the !sso_name to change your password', array(
+    $form['account']['pass']['#description'] = t('Please visit the !sso_name to change your password address', array(
       '!sso_name' => l(t('Single-Sign-On-Provider'), $provider['url'], array('query' => array('omniauth_redirect' => $path))))
     );
   }

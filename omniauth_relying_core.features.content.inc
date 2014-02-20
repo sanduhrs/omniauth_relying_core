@@ -236,8 +236,8 @@ function omniauth_relying_core_content_default_fields() {
     'active' => '1',
     'text_processing' => '0',
     'max_length' => '',
-    'allowed_values' => 'Frau|Frau
-Herr|Herr',
+    'allowed_values' => 'female|Frau
+male|Herr',
     'allowed_values_php' => '',
     'widget' => array(
       'rows' => NULL,
