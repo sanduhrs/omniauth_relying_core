@@ -5,3 +5,44 @@
  */
 
 include_once('omniauth_relying_core.features.inc');
+
+
+/**
+ * Implements hook_menu()
+ */
+function omniauth_relying_core_menu() {
+
+  $items['openid/profile/redirect'] = array(
+    'title' => 'Redirect to user profile',
+    'page callback' => 'omniauth_relying_core_openid_profile_redirect',
+    'access arguments' => array('access user profiles'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+
+}
+
+
+/**
+ * Custom menu callback for redirecting to user profle by openid sso identity.
+ */
+function omniauth_relying_core_openid_profile_redirect() {
+
+  // Obtain openid identity url from arguments.
+  $openid_idenity = $_GET['identity'];
+
+  // Decode identity
+  $openid_idenity = rawurldecode($openid_idenity);
+
+  if (valid_url($openid_idenity)) {
+    $account = user_external_load($openid_idenity);
+    if (isset($account->uid)) {
+
+      // Redirect to user.
+      drupal_goto('user/' . $account->uid);
+    }
+  }
+
+  // If no redirect has happened, just throw 404.
+  drupal_not_found();
+}
